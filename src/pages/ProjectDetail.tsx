@@ -41,6 +41,20 @@ export function ProjectDetail() {
         </div>
       </header>
 
+      {/* Demo image */}
+      {m.image && (
+        <section className="mb-10">
+          <div className="overflow-hidden rounded-2xl border border-border bg-bg-card">
+            <img
+              src={m.image}
+              alt={`${title} demo`}
+              className="w-full h-auto"
+              loading="lazy"
+            />
+          </div>
+        </section>
+      )}
+
       <section className="mb-10">
         <h2 className="text-lg font-semibold text-text-strong mb-3">{t.projectDetail.overview}</h2>
         <p className="text-[15px] leading-relaxed text-text">{description}</p>

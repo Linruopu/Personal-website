@@ -25,7 +25,7 @@ export function Layout() {
 
       {/* Main content — offset by sidebar width on desktop */}
       <div className="min-h-screen lg:ml-[280px]">
-        <main className="mx-auto max-w-3xl px-6 sm:px-8 py-14">
+        <main className="w-full max-w-5xl mx-auto lg:mx-0 lg:pl-12 xl:pl-16 px-6 sm:px-8 py-14">
           <Outlet />
         </main>
         <Footer />

@@ -22,6 +22,7 @@ export interface ProjectMeta {
   techStack: string[]
   highlights: string[]
   highlightsZh?: string[]
+  image?: string
   article?: string
   demo?: string
   source?: string
