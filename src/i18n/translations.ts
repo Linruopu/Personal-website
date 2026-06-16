@@ -1,0 +1,236 @@
+export type Lang = 'en' | 'zh'
+
+export const translations = {
+  en: {
+    navbar: {
+      blog: 'Blog',
+      notes: 'Notes',
+      projects: 'Projects',
+      about: 'About Me',
+      resume: 'Resume',
+      github: 'GitHub',
+    },
+    leftSidebar: {
+      aboutMe: 'About Me',
+      aboutText:
+        "I'm Ruopu Lin, an information and communication engineering graduate student focused on AI Agents, RAG, and industrial intelligence.",
+      navigation: 'Navigation',
+      blog: 'Blog',
+      notes: 'Notes',
+      projects: 'Projects',
+      about: 'About Me',
+      focus: 'Focus',
+      stayConnected: 'Stay Connected',
+      email: 'Email',
+      resume: 'Resume',
+      rss: 'RSS',
+    },
+    rightSidebar: {
+      browse: 'Browse',
+      technicalArticles: 'Technical Articles',
+      notes: 'Notes',
+      projects: 'Projects',
+      popularTags: 'Popular Tags',
+      aboutThisArticle: 'About This Article',
+      published: 'Published',
+      minRead: 'min read',
+      tableOfContents: 'Table of Contents',
+      projectInfo: 'Project Info',
+      techStack: 'Tech Stack',
+      connect: 'Connect',
+      email: 'Email',
+      resume: 'Resume',
+      github: 'GitHub',
+    },
+    home: {
+      heroTitle: "Hey, I'm Ruopu!",
+      heroP1:
+        'I build AI Agent systems for industrial intelligence, RAG applications, and creative workflows.',
+      heroP2:
+        'Focusing on LLM, RAG and AI Agent applications in industrial energy and content generation scenarios. Everything here documents my projects, notes, and experiments around LLM applications, industrial AIOps, and agentic workflows.',
+      technicalArticles: 'Technical Articles',
+      allArticles: 'All articles →',
+      notes: 'Notes',
+      allNotes: 'All notes →',
+      projects: 'Projects',
+      allProjects: 'All projects →',
+    },
+    blog: {
+      title: 'Blog',
+      description:
+        'Technical articles on AI agents, RAG, industrial AI, and workflow design.',
+    },
+    notes: {
+      title: 'Notes',
+      description:
+        'Quick technical notes — observations, tips, and short-form writing.',
+    },
+    projects: {
+      title: 'Projects',
+      description:
+        'AI Agent systems, industrial diagnostics, and creative workflow tools.',
+    },
+    about: {
+      title: 'About Me',
+      p1: "Hi, I'm **Ruopu Lin (林若浦)** — an AI Engineer specializing in LLM applications, RAG systems, and AI Agent workflow design. I work at the intersection of artificial intelligence and industrial systems.",
+      focusAreas: 'Focus Areas',
+      fa1: '**AI Agent Systems:** Multi-agent orchestration with LangGraph, DAG-based workflow engines, and human-in-the-loop patterns.',
+      fa2: '**RAG Applications:** Beyond document QA — building retrieval-augmented systems for industrial diagnostics.',
+      fa3: '**Industrial AIOps:** Intelligent alarm analysis, root cause attribution, and automated report generation.',
+      fa4: '**Creative AI Workflows:** Agent-driven content generation pipelines — script to video.',
+      background: 'Background',
+      bgText:
+        'My background spans both industrial control systems and modern AI engineering. I have hands-on experience with industrial communication protocols (Modbus TCP, IEC61850 GOOSE/MMS), embedded deployment, and power electronics simulation. This engineering foundation combines with deep work in LLMs and agent frameworks to bridge AI capabilities with real-world industrial requirements.',
+      thisSite: 'This Site',
+      siteText:
+        'This website is where I share technical articles, notes and project case studies. Built with React, TypeScript, and Tailwind CSS — clean, fast, and content-first.',
+    },
+    articleDetail: {
+      backToBlog: 'Back to Blog',
+      backToNotes: 'Back to Notes',
+      notFound: 'Article Not Found',
+      notFoundDesc: "The article you're looking for doesn't exist.",
+      minRead: 'min read',
+    },
+    noteDetail: {
+      notFound: 'Note Not Found',
+      notFoundDesc: "The note you're looking for doesn't exist.",
+    },
+    projectDetail: {
+      backToProjects: 'All Projects',
+      overview: 'Overview',
+      highlights: 'Highlights',
+      techStack: 'Tech Stack',
+      readArticle: 'Read Article',
+      liveDemo: 'Live Demo',
+      viewSource: 'View Source',
+      notFound: 'Project Not Found',
+      notFoundDesc: "The project you're looking for doesn't exist.",
+      backToProjectsLink: '← Back to Projects',
+    },
+    footer: {
+      builtWith: 'Built with React, Vite & Tailwind CSS.',
+      github: 'GitHub',
+      linkedin: 'LinkedIn',
+      email: 'Email',
+    },
+    languageToggle: {
+      label: 'EN / 中文',
+    },
+  },
+
+  zh: {
+    navbar: {
+      blog: '博客',
+      notes: '笔记',
+      projects: '项目',
+      about: '关于我',
+      resume: '简历',
+      github: 'GitHub',
+    },
+    leftSidebar: {
+      aboutMe: '关于我',
+      aboutText:
+        '我是林若浦 (Ruopu Lin)，一名信息与通信工程研究生，专注于 AI Agent、RAG 和工业智能领域。',
+      navigation: '导航',
+      blog: '博客',
+      notes: '笔记',
+      projects: '项目',
+      about: '关于我',
+      focus: '专注领域',
+      stayConnected: '保持联系',
+      email: '邮箱',
+      resume: '简历',
+      rss: 'RSS',
+    },
+    rightSidebar: {
+      browse: '浏览',
+      technicalArticles: '技术文章',
+      notes: '笔记',
+      projects: '项目',
+      popularTags: '热门标签',
+      aboutThisArticle: '文章信息',
+      published: '发布于',
+      minRead: '分钟阅读',
+      tableOfContents: '目录',
+      projectInfo: '项目信息',
+      techStack: '技术栈',
+      connect: '联系',
+      email: '邮箱',
+      resume: '简历',
+      github: 'GitHub',
+    },
+    home: {
+      heroTitle: '你好，我是 Ruopu！',
+      heroP1:
+        '我构建面向工业智能、RAG 应用和创意工作流的 AI Agent 系统。',
+      heroP2:
+        '关注 LLM、RAG 与 AI Agent 在工业能源和内容生成场景中的落地应用。这里记录了我的项目、笔记和实验，涵盖 LLM 应用、工业 AIOps 和智能体工作流。',
+      technicalArticles: '技术文章',
+      allArticles: '全部文章 →',
+      notes: '笔记',
+      allNotes: '全部笔记 →',
+      projects: '项目',
+      allProjects: '全部项目 →',
+    },
+    blog: {
+      title: '博客',
+      description: '关于 AI Agent、RAG、工业 AI 和工作流设计的技术文章。',
+    },
+    notes: {
+      title: '笔记',
+      description: '快速技术笔记 — 观察、技巧和短文。',
+    },
+    projects: {
+      title: '项目',
+      description: 'AI Agent 系统、工业诊断和创意工作流工具。',
+    },
+    about: {
+      title: '关于我',
+      p1: '你好，我是 **Ruopu Lin (林若浦)** — 一名专注于 LLM 应用、RAG 系统和 AI Agent 工作流设计的 AI 工程师。我的工作处于人工智能与工业系统的交叉领域。',
+      focusAreas: '专注领域',
+      fa1: '**AI Agent 系统：** 基于 LangGraph 的多智能体编排、DAG 工作流引擎和人机协同模式。',
+      fa2: '**RAG 应用：** 超越文档问答 — 为工业诊断构建检索增强系统。',
+      fa3: '**工业 AIOps：** 智能告警分析、根因归因和自动报告生成。',
+      fa4: '**创意 AI 工作流：** Agent 驱动的内容生成管线 — 从脚本到视频。',
+      background: '背景',
+      bgText:
+        '我的背景横跨工业控制系统和现代 AI 工程。我有工业通信协议（Modbus TCP、IEC61850 GOOSE/MMS）、嵌入式部署和电力电子仿真的实践经验。这一工程基础与 LLM 和 Agent 框架的深度结合，将 AI 能力与真实工业需求连接起来。',
+      thisSite: '关于本站',
+      siteText:
+        '这个网站是我分享技术文章、笔记和项目案例的地方。使用 React、TypeScript 和 Tailwind CSS 构建 — 简洁、快速、内容优先。',
+    },
+    articleDetail: {
+      backToBlog: '返回博客',
+      backToNotes: '返回笔记',
+      notFound: '文章未找到',
+      notFoundDesc: '您查找的文章不存在。',
+      minRead: '分钟阅读',
+    },
+    noteDetail: {
+      notFound: '笔记未找到',
+      notFoundDesc: '您查找的笔记不存在。',
+    },
+    projectDetail: {
+      backToProjects: '全部项目',
+      overview: '概述',
+      highlights: '亮点',
+      techStack: '技术栈',
+      readArticle: '阅读文章',
+      liveDemo: '在线演示',
+      viewSource: '查看源码',
+      notFound: '项目未找到',
+      notFoundDesc: '您查找的项目不存在。',
+      backToProjectsLink: '← 返回项目',
+    },
+    footer: {
+      builtWith: '使用 React、Vite 和 Tailwind CSS 构建。',
+      github: 'GitHub',
+      linkedin: 'LinkedIn',
+      email: '邮箱',
+    },
+    languageToggle: {
+      label: 'EN / 中文',
+    },
+  },
+} as const

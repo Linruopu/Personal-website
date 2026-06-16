@@ -1,0 +1,41 @@
+## RAG is More Than Document QA
+
+Retrieval-Augmented Generation has become one of the most discussed patterns in LLM application development. The elevator pitch is simple: "chat with your documents." Upload a PDF, ask questions, get answers grounded in the source material.
+
+This framing has driven enormous adoption. But it also limits how most people think about RAG.
+
+In industrial settings — energy storage systems, power plants, manufacturing lines — RAG looks quite different. It's not about chatting with PDFs. It's about building a structured knowledge layer that agent systems can query programmatically, in context, as part of a diagnostic or decision-making workflow.
+
+## The Document QA Framing
+
+The classic RAG demo:
+
+1. User uploads a PDF manual
+2. Manual is chunked and embedded
+3. User asks "What's the maintenance interval for the battery rack?"
+4. System retrieves relevant chunks
+5. LLM synthesizes an answer
+
+This works. But it assumes:
+- There's a **human** asking questions
+- The questions are **ad-hoc** and exploratory
+- The knowledge is in **unstructured documents**
+
+## Industrial RAG: Three Key Differences
+
+### 1. Structured, Not Just Unstructured
+
+Industrial knowledge doesn't only live in PDFs. It lives in:
+
+- **Fault specification tables**: structured fault codes, severity levels, probable causes
+- **Equipment datasheets**: parameter ranges, configuration templates, calibration procedures
+- **Historical incident records**: timestamped events, root causes identified by engineers, actions taken
+- **Real-time operational data**: current sensor readings, alarm states, control commands
+
+A useful RAG system must index all of these — structured and unstructured — and make them retrievable in a unified way.
+
+### 2. Agent-Driven, Not Human-Driven
+
+In the EMU Agent system, the "user" of RAG is not always a human operator. Often, it's another node in the agent workflow:
+
+\

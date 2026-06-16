@@ -1,0 +1,39 @@
+## Knowledge Graph vs Vector Search for Industrial RAG
+
+Both knowledge graphs and vector search retrieve information, but they work very differently. Here's when to use each.
+
+## Vector Search
+
+Embedding-based semantic search excels at:
+- Finding documents "about" a concept
+- Handling paraphrased queries
+- Discovering related content without explicit links
+
+But it struggles with:
+- Exact relationships ("which battery rack contains cell #42?")
+- Structured queries ("all faults with severity > warning")
+- Multi-hop reasoning
+
+## Knowledge Graphs
+
+Graph-based retrieval excels at:
+- Explicit relationships between entities
+- Structured queries with constraints
+- Multi-hop traversal (battery → rack → site → region)
+
+But it struggles with:
+- Unstructured text search
+- Paraphrased or fuzzy queries
+- Content that doesn't fit a schema
+
+## The Hybrid Approach
+
+The EMU Agent uses both:
+
+- **Vector search** for symptom descriptions → relevant fault specs
+- **Knowledge graph** for equipment hierarchy → affected components
+- **Combined**: finding incidents that are both semantically similar AND involve related equipment
+
+## Implementation Pattern
+
+Build your knowledge graph from structured data (equipment hierarchy, fault code relationships). Build your vector index from unstructured text (manuals, incident reports). Use a fusion step that merges results from both before feeding to the LLM.

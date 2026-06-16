@@ -1,0 +1,35 @@
+## 类型安全的 Agent 状态管理
+
+在多节点 Agent 工作流中，状态管理很快变得混乱。以下是如何保持类型安全。
+
+## 问题
+
+节点 A 写入 \`diagnosis.confidence\`，节点 B 期望 \`diagnosis.confidenceScore\`——运行时错误，无编译时警告。
+
+## 解决方案：带类型的部分状态更新
+
+将你的工作流状态定义为一个 TypeScript 接口：
+
+\`\`\`typescript
+interface DiagnosticState {
+  intent: 'alarm' | 'query' | 'report' | null
+  alarms: Alarm[]
+  realtimeData: SensorReading[]
+  knowledgeResults: KnowledgeItem[]
+  diagnosis: { rootCause: string; confidence: number }
+}
+\`\`\`
+
+## 节点签名
+
+每个节点是一个具有清晰契约的函数：
+
+\`\`\`typescript
+type AgentNode = (state: DiagnosticState) => Promise<Partial<DiagnosticState>>
+\`\`\`
+
+## 优势
+
+- **可预测**：节点不会意外修改它们不拥有的字段
+- **可序列化**：状态可以记录、重放和调试
+- **可测试**：每个节点是一个易单元测试的纯函数

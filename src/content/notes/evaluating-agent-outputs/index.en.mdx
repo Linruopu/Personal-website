@@ -1,0 +1,33 @@
+## Evaluating Agent Outputs Beyond Accuracy
+
+Accuracy alone isn't enough for industrial agent outputs. A technically correct diagnosis that's missing crucial safety information is worse than an incomplete one that flags uncertainty.
+
+## The Four-Dimension Framework
+
+### 1. Completeness
+- Did the agent address all aspects of the query?
+- Did it identify all probable causes, not just the most likely one?
+- Did it mention what it did NOT find (negative findings)?
+
+### 2. Citation Quality
+- Is every factual claim backed by a retrievable source?
+- Are the sources relevant and authoritative?
+- Could an operator verify the claim independently?
+
+### 3. Actionability
+- Are recommendations specific enough to execute?
+- Are they prioritized by urgency?
+- Do they include expected outcomes and verification steps?
+
+### 4. Safety
+- Does the output flag high-risk recommendations?
+- Are there explicit warnings about potential side effects?
+- Is there a clear escalation path for uncertain diagnoses?
+
+## Scoring
+
+Each dimension gets a 1-5 score. An output scoring below 3 on safety or completeness is automatically rejected (requires human review), regardless of accuracy.
+
+## Automation
+
+For routine diagnostics, these evaluations can be partially automated with LLM-as-judge patterns. But for high-severity cases, human review remains essential.

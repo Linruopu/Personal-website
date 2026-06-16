@@ -1,0 +1,39 @@
+## Industrial Protocols for AI Engineers
+
+If you're building AI systems for industrial applications, you'll encounter protocols that predate REST by decades. Here's what matters.
+
+## Modbus TCP
+
+The simplest industrial protocol. It's a request-response protocol over TCP:
+
+- Client sends a request: "read holding registers 40001-40010"
+- Server responds with the register values
+- Each register is a 16-bit integer
+
+**What AI engineers need to know**: Modbus data is raw numbers — no metadata, no units, no timestamps. You need a separate configuration layer that maps register addresses to physical meanings (e.g., "register 40001 = battery voltage in 0.1V units").
+
+## IEC61850 GOOSE
+
+GOOSE (Generic Object Oriented Substation Event) is event-driven multicast:
+
+- Devices publish events to multicast groups
+- Subscribers receive events with minimal latency (<4ms)
+- Events are repeated at increasing intervals for reliability
+
+**What AI engineers need to know**: GOOSE messages are structured but binary. You need to parse SCL (Substation Configuration Language) files to understand the data model.
+
+## IEC61850 MMS
+
+MMS (Manufacturing Message Specification) provides structured data access:
+
+- Hierarchical data model (Logical Device → Logical Node → Data Object)
+- Read, write, and report services
+- Self-describing: the device can tell you what data it has
+
+**What AI engineers need to know**: MMS is closer to REST APIs — structured, discoverable, typed. It's the easiest protocol to integrate with AI systems.
+
+## Practical Tips
+
+1. **Use a protocol gateway** when possible — convert everything to MQTT or HTTP at the edge
+2. **Don't poll faster than necessary** — industrial devices have limited CPU
+3. **Always validate data freshness** — stale data in industrial systems can be dangerous

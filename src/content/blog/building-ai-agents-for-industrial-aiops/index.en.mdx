@@ -1,0 +1,56 @@
+## Building AI Agents for Industrial AIOps
+
+Industrial AIOps — applying AI to IT and OT operations — is fundamentally different from building chatbots or content generators. The stakes are higher, the data is messier, and the system must operate within strict reliability constraints.
+
+This article shares lessons from building the EMU Agent, an intelligent diagnostic system for energy storage O&M (Operations & Maintenance).
+
+## The Problem Space
+
+Energy storage systems are complex. A typical site has:
+
+- **Battery racks** with hundreds of individual cells
+- **Power conversion systems** (PCS) managing charge/discharge
+- **EMS (Energy Management System)** coordinating grid interaction
+- **Environmental controls** (HVAC, fire suppression)
+- **Communication networks** (Modbus TCP, IEC61850 GOOSE/MMS)
+
+When something goes wrong, operators face a flood of alarms. A single root cause can trigger cascading alarms across subsystems. Diagnosing the actual problem requires:
+
+1. Filtering noise from signal in alarm streams
+2. Correlating alarms across subsystems
+3. Querying real-time sensor data for context
+4. Referencing fault specifications and historical incidents
+5. Synthesizing a coherent diagnosis with actionable recommendations
+
+This is exactly the kind of multi-step, knowledge-intensive task that AI agents can help with.
+
+## Architecture Overview
+
+The EMU Agent system has four layers:
+
+### Layer 1: Data Integration
+
+Raw data comes from multiple sources:
+
+- **Real-time**: Modbus TCP polling for battery voltages, temperatures, SOC
+- **Events**: IEC61850 GOOSE messages for protection events
+- **Historical**: SQLite database storing snapshots, alarms, control commands
+- **Documents**: Fault specifications, equipment manuals, maintenance records
+
+A FastAPI service layer normalizes these into unified APIs, abstracting protocol details from the agent logic.
+
+### Layer 2: Knowledge Base
+
+The RAG knowledge base indexes three categories:
+
+- **Fault specifications**: structured fault codes with probable causes and recommended actions
+- **Equipment documentation**: parameter ranges, configuration guides, wiring diagrams
+- **Operational experience**: historical incident reports with engineer annotations
+
+Retrieval uses a hybrid strategy: keyword matching for fault codes, semantic search for symptom descriptions, and structured queries for parameter lookups.
+
+### Layer 3: Agent Workflow
+
+The core diagnostic workflow is a DAG (Directed Acyclic Graph):
+
+\

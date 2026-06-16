@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ── Light mode (default) ─────────────────────────────────── */
+  :root {
+    --color-bg: 253 249 238;           /* #fdf9ee — warm off-white */
+    --color-bg-soft: 246 240 223;      /* #f6f0df */
+    --color-bg-card: 238 232 213;      /* #eee8d5 */
+    --color-text: 78 78 85;            /* #4e4e55 — body copy */
+    --color-text-strong: 22 22 26;     /* #16161a — headings */
+    --color-text-muted: 143 139 127;   /* #8f8b7f — secondary */
+    --color-border: 229 220 189;       /* #e5dcbd */
+    --color-accent: 47 113 180;        /* #2f71b4 — links */
+    --color-accent-hover: 31 95 158;   /* #1f5f9e */
+  }
+
+  /* ── Dark mode ────────────────────────────────────────────── */
+  .dark {
+    --color-bg: 28 28 32;              /* #1c1c20 */
+    --color-bg-soft: 22 22 26;         /* #16161a */
+    --color-bg-card: 37 37 43;         /* #25252b */
+    --color-text: 212 212 216;         /* #d4d4d8 */
+    --color-text-strong: 251 251 251;  /* #fbfbfb */
+    --color-text-muted: 161 161 168;   /* #a1a1a8 */
+    --color-border: 50 50 57;          /* #323239 */
+    --color-accent: 106 176 243;       /* #6ab0f3 */
+    --color-accent-hover: 138 194 246; /* #8ac2f6 */
+  }
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-bg text-text text-justify;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* ── Global link style: dotted underline ──────────────────── */
+  a {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+  }
+
+  /* Reset underline on elements where it doesn't make sense */
+  nav a,
+  header a,
+  footer a,
+  .no-dotted a,
+  a.no-dotted {
+    text-decoration: none;
+  }
+}
+
+/* ── Code block dark mode ─────────────────────────────────────── */
+.dark .hljs {
+  @apply bg-bg-card;
+}
+
+/* ── Sidebar scrollbar ────────────────────────────────────────── */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  @apply bg-bg-soft rounded-full;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+/* ── TOC ──────────────────────────────────────────────────────── */
+.toc-link {
+  @apply text-text-muted hover:text-text-strong transition-colors text-sm;
+}
+.toc-link.active {
+  color: rgb(var(--color-accent));
+  font-weight: 500;
+}

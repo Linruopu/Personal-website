@@ -1,0 +1,148 @@
+## From EMS Data to Agent Diagnosis
+
+This article walks through the complete data pipeline of the EMU Agent system — from raw industrial data streams to structured diagnostic reports — explaining the design choices at each stage.
+
+## The Data Landscape
+
+An Energy Management System (EMS) in a battery storage site generates several categories of data:
+
+### Real-Time Telemetry
+- Battery cell voltages (100+ points per rack)
+- Temperature sensors (ambient, cell, PCS)
+- State of Charge (SOC) and State of Health (SOH)
+- Power flow (charge/discharge kW)
+- Grid connection status
+
+### Events & Alarms
+- Protection events (over-voltage, under-voltage, over-temperature)
+- Communication faults (Modbus timeout, GOOSE subscription loss)
+- Equipment status changes (breaker open/close, PCS start/stop)
+
+### Control Commands
+- Charge/discharge power setpoints
+- Reactive power commands
+- Breaker trip/close commands
+- PCS mode changes
+
+### Historical Records
+- Past alarm logs with operator annotations
+- Maintenance records
+- Configuration changes
+
+All of this flows through industrial protocols — primarily Modbus TCP for polling data and IEC61850 GOOSE for event-driven messages.
+
+## Stage 1: Data Ingestion & Normalization
+
+The first challenge is protocol diversity. A C++ data collector handles the low-level protocol work:
+
+- **Modbus TCP**: Polls holding registers at configurable intervals (100ms for critical points, 1s for non-critical)
+- **IEC61850 GOOSE**: Subscribes to multicast GOOSE messages for protection events
+- **IEC61850 MMS**: Reads structured data from IEDs (Intelligent Electronic Devices)
+
+The collector normalizes everything into a common JSON schema and writes to SQLite via a FastAPI service. Why SQLite? It's embedded, zero-maintenance, and handles the throughput comfortably (typically ~10K data points/second with WAL mode).
+
+## Stage 2: The Knowledge Base
+
+Raw data isn't enough for diagnosis. The system needs domain knowledge:
+
+### Fault Specifications
+A structured table mapping fault codes to:
+- Severity (info / warning / critical / emergency)
+- Probable causes (ranked by likelihood)
+- Recommended actions
+- Related subsystems
+
+### Equipment Documentation
+- Normal operating ranges for all parameters
+- Configuration templates
+- Wiring and communication topology
+
+### Operational Experience
+- Historical incident reports with root cause annotations
+- Maintenance procedures that resolved similar issues
+
+These are indexed using a hybrid approach:
+- **BM25 keyword search** for exact fault code matching
+- **Dense embeddings** for semantic search across symptom descriptions
+- **SQL queries** for parameter range lookups
+
+## Stage 3: The AgentGraph Workflow
+
+This is where diagnosis happens. The workflow is a Directed Acyclic Graph (DAG) with the following nodes:
+
+### Node 1: Intent Recognition
+
+An LLM call classifies the user's intent:
+- **Alarm inquiry**: "What's wrong with battery rack 3?"
+- **Status query**: "Show me today's SOC trend"
+- **Report request**: "Generate the weekly maintenance report"
+- **Control intent**: "Reset the Modbus connection for PCS 2"
+
+Each intent triggers a different subgraph.
+
+### Node 2: Data Retrieval
+
+Based on intent, the agent queries the right data:
+- Alarm inquiry → recent alarms for the specified equipment + real-time telemetry at the time of the alarm
+- Status query → current telemetry snapshot + recent trends
+- Report request → aggregated statistics over the requested period
+
+### Node 3: Knowledge Retrieval
+
+RAG retrieval triggered by the specific scenario:
+- Fault codes from the alarm → exact-match lookup in fault specs
+- Symptom descriptions → semantic search across historical incidents
+- Equipment type → parameter range lookup
+
+### Node 4: Anomaly Analysis
+
+The LLM analyzes the data against normal ranges:
+- Are any parameters outside normal bounds?
+- Are there correlations between alarms?
+- Does the pattern match any known failure modes?
+
+### Node 5: Root Cause Attribution
+
+The most complex node. The LLM synthesizes:
+- The alarm data
+- The retrieved fault specs
+- Similar historical incidents
+- Engineering knowledge encoded in prompts
+
+to produce a ranked list of probable root causes with confidence scores.
+
+### Node 6: Report Generation
+
+The final diagnosis is formatted into a structured report with:
+- Executive summary
+- Timeline of events
+- Analysis and root cause attribution
+- Recommended actions
+- References to relevant documentation
+
+## Stage 4: Presentation
+
+The Vue 3 frontend renders reports with ECharts visualizations:
+- Timeline charts showing alarm sequences
+- Parameter trend lines with anomaly highlights
+- Decision trees showing the diagnostic reasoning path
+
+Operators can drill into any conclusion to see the underlying data and retrieved documents.
+
+## Why This Architecture Works
+
+### Separation of Concerns
+
+Data collection, knowledge retrieval, and diagnostic reasoning are decoupled. You can improve the retrieval strategy without touching the diagnostic logic, and vice versa.
+
+### Auditability
+
+Every diagnostic conclusion has a trace: which data was queried, which documents were retrieved, which reasoning steps led to the conclusion. In industrial settings, this traceability is essential for operator trust.
+
+### Extensibility
+
+Adding a new data source (e.g., vibration sensors) means adding a new collector and a new retrieval path — the diagnostic graph doesn't change. Adding a new diagnostic capability means adding a new subgraph.
+
+## Conclusion
+
+The journey from raw EMS data to agent diagnosis involves careful engineering at every layer: protocol-level data collection, hybrid retrieval indexing, DAG-based agent orchestration, and structured report generation. The key insight is that the LLM is just one component — the surrounding infrastructure for data access, knowledge retrieval, and workflow orchestration is equally important for a system that operators can trust.
