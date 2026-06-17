@@ -15,10 +15,10 @@ export function Navbar() {
   const { t } = useI18n()
 
   const navLinks = [
+    { to: '/about', label: t.navbar.about },
+    { to: '/projects', label: t.navbar.projects },
     { to: '/blog', label: t.navbar.blog },
     { to: '/notes', label: t.navbar.notes },
-    { to: '/projects', label: t.navbar.projects },
-    { to: '/about', label: t.navbar.about },
   ]
 
   return (

@@ -33,10 +33,10 @@ export function LeftSidebar() {
   const { t } = useI18n()
 
   const navItems = [
+    { to: '/about', label: t.leftSidebar.about, icon: '👤' },
+    { to: '/projects', label: t.leftSidebar.projects, icon: '⚡' },
     { to: '/blog', label: t.leftSidebar.blog, icon: '📝' },
     { to: '/notes', label: t.leftSidebar.notes, icon: '📋' },
-    { to: '/projects', label: t.leftSidebar.projects, icon: '⚡' },
-    { to: '/about', label: t.leftSidebar.about, icon: '👤' },
   ]
 
   const aboutText = t.leftSidebar.aboutText
